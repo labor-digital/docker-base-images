@@ -2,8 +2,10 @@ name: Build and push base - docker image on push
 
 on:
   push:
-    branches-ignore:
-      "master"
+    branches:
+      - '*'         # matches every branch
+      - '*/*'       # matches every branch containing a single '/'
+      - '!master'   # excludes master
 
 jobs:
   build:
