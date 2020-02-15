@@ -1,9 +1,8 @@
-name: Build and push base - on schedule
+name: Build and push docker images - on schedule
 
 on:
   schedule:
-    #0 2 * * 6
-    - cron: '55 16 * * 6'
+    - cron: '0 2 * * *' # Rebuild the images every night @todo twice per week will be enough -> just for testing
 
 jobs:
 
@@ -18,10 +17,8 @@ jobs:
       - uses: actions/checkout@v1
         with:
           ref: "php73"
-      - name: Build the tagged Docker image
-        run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php73
-      - name: Push the tagged Docker image
-        run: docker push labordigital/docker-base-images:php73
+      - run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php73
+      - run: docker push labordigital/docker-base-images:php73
       - run: "rm -rf ./* && rm -rf ./.git"
 
   # Build extended prod images
@@ -36,7 +33,7 @@ jobs:
   # Build development images
   build-dev-images:
 
-    needs: build-base-images
+    needs: [build-base-images, build-ext-images]
     runs-on: ubuntu-latest
     steps:
       -
@@ -47,10 +44,8 @@ jobs:
       - uses: actions/checkout@v1
         with:
           ref: "php73-dev"
-      - name: Build the tagged Docker image
-        run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php73-dev
-      - name: Push the tagged Docker image
-        run: docker push labordigital/docker-base-images:php73-dev
+      - run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php73-dev
+      - run: docker push labordigital/docker-base-images:php73-dev
       - run: "rm -rf ./* && rm -rf ./.git"
 
 
