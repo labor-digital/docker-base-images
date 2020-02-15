@@ -1,14 +1,8 @@
-# LABOR.digital - PHP 7.3 Extended
+# LABOR.digital - PHP 7.3 Base Image - Dev Edition - Extended
 
-The extended docker image for our PHP based containers. It inherits of the [default PHP image](https://github.com/labor-digital/docker-base-images/tree/php73) but also installs imagik, the soap client for php and pdf2text.
+The development edition for our extendced PHP [7.3 docker base image](https://github.com/labor-digital/docker-base-images/tree/php73-ext). Why a separate dev version? You can use this version of the base image for dev or pipeline builds that require access to composer or phpunit (which are already pre-installed in this version) and simply pass the required artifacts to your build production image.
 
 Note: As we are a company based in germany the locale and timezone are already preconfigured for germany!
-
-## Environment Variables
-All environment variables that are inherited from the base image ([here](https://hub.docker.com/_/php))
-
-- PROJECT_ENV ("prod") Helper to define the environment for your application. SHOULD BE "dev", "staging" or "prod";
-- APACHE_WEBROOT ("/var/www/html") Defines the apache webroot directory
 
 ## Postcardware
 You're free to use these images, but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
