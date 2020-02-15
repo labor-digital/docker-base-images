@@ -1,6 +1,6 @@
-# LABOR.digital - PHP 7.3 Base Image
+# LABOR.digital - PHP 7.3 Extended
 
-A base image for PHP 7.3 with a bunch of extensions already preconfigured.
+The extended docker image for our PHP based containers. It inherits of the [default PHP image](https://github.com/labor-digital/docker-base-images/tree/php73) but also installs imagik, the soap client for php and pdf2text.
 
 Note: As we are a company based in germany the locale and timezone are already preconfigured for germany!
 
