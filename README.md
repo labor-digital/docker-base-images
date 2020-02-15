@@ -1,9 +1,14 @@
-# LABOR.digital - Docker Base Images
+# LABOR.digital - PHP 7.3 Base Image
 
-This repository contains the docker base image sources for our projects. 
-Every branch in this repository reflects one tag on the docker hub. 
+A base image for PHP 7.3 with a bunch of extensions already preconfigured.
 
-You can find the images [here on docker hub](https://hub.docker.com/repository/docker/labordigital/docker-base-images).
+Note: As we are a company based in germany the locale and timezone are already preconfigured for germany!
+
+## Environment Variables
+All environment variables that are inherited from the base image ([here](https://hub.docker.com/_/php))
+
+- PROJECT_ENV ("prod") Helper to define the environment for your application. SHOULD BE "dev", "staging" or "prod";
+- APACHE_WEBROOT ("/var/www/html") Defines the apache webroot directory
 
 ## Postcardware
 You're free to use these images, but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
