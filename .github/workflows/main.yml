@@ -1,0 +1,25 @@
+name: Build and push base - on push
+
+on:
+  push:
+    branches:
+      - '*'         # matches every branch
+      - '*/*'       # matches every branch containing a single '/'
+      - '!master'   # excludes master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Get the tag
+        id: vars
+        shell: bash
+        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/heads/})"
+      - name: Build the tagged Docker image
+        run: docker build . --file Dockerfile --tag labordigital/docker-base-images:${{steps.vars.outputs.tag}}
+      - name: Push the tagged Docker image
+        run: docker push labordigital/docker-base-images:${{steps.vars.outputs.tag}}
+
