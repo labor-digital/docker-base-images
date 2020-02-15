@@ -1,4 +1,4 @@
-name: Build and push base - on push
+name: Build and push docker images - on push
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - '!master'   # excludes master
 
 jobs:
-  build:
+  buildAndPushOnPush:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
