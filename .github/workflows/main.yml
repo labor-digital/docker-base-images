@@ -1,12 +1,9 @@
-name: Build and push base - docker images
+name: Build and push base - docker image on push
 
 on:
   push:
     branches-ignore:
       "master"
-  schedule:
-    #0 2 * * 6
-    - cron: '*/10 * * * *'
 
 jobs:
   build:

@@ -1,0 +1,57 @@
+name: Build and push base - docker images on schedule
+
+on:
+  schedule:
+    #0 2 * * 6
+    - cron: '30 17 * * 6'
+
+jobs:
+
+  # Build base prod images
+  build-base-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      # PHP 73
+      - uses: actions/checkout@v1
+        with:
+          ref: "php73"
+      - name: Build the tagged Docker image
+        run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php73
+      - name: Push the tagged Docker image
+        run: docker push labordigital/docker-base-images:php73
+      - run: "rm -rf ./* && rm -rf ./.git"
+
+  # Build extended prod images
+  build-ext-images:
+
+    needs: build-base-images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+  # Build development images
+  build-dev-images:
+
+    needs: build-base-images
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      # PHP 73 dev
+      - uses: actions/checkout@v1
+        with:
+          ref: "php73-dev"
+      - name: Build the tagged Docker image
+        run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php73-dev
+      - name: Push the tagged Docker image
+        run: docker push labordigital/docker-base-images:php73-dev
+      - run: "rm -rf ./* && rm -rf ./.git"
+
+
+
