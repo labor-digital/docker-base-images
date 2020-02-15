@@ -1,4 +1,4 @@
-name: Build and push base - docker images on schedule
+name: Build and push base - on schedule
 
 on:
   schedule:
