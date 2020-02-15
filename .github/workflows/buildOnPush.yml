@@ -2,13 +2,10 @@ name: Build and push docker images - on push
 
 on:
   push:
-    branches:
-      - '*'         # matches every branch
-      - '*/*'       # matches every branch containing a single '/'
-      - '!master'   # excludes master
 
 jobs:
   buildAndPushOnPush:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
