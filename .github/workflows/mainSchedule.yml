@@ -21,14 +21,13 @@ jobs:
       - run: docker push labordigital/docker-base-images:php73
       - run: "rm -rf ./* && rm -rf ./.git"
 
-  # Build extended prod images
-  build-ext-images:
-
-    needs: build-base-images
-    runs-on: ubuntu-latest
-    steps:
-      - name: Login to DockerHub Registry
-        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      # PHP 73 EXT
+      - uses: actions/checkout@v1
+        with:
+          ref: "php73-ext"
+      - run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php73-ext
+      - run: docker push labordigital/docker-base-images:php73-ext
+      - run: "rm -rf ./* && rm -rf ./.git"
 
   # Build development images
   build-dev-images:
@@ -46,6 +45,14 @@ jobs:
           ref: "php73-dev"
       - run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php73-dev
       - run: docker push labordigital/docker-base-images:php73-dev
+      - run: "rm -rf ./* && rm -rf ./.git"
+
+      # PHP 73 EXT dev
+      - uses: actions/checkout@v1
+        with:
+          ref: "php73-ext-dev"
+      - run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php73-ext-dev
+      - run: docker push labordigital/docker-base-images:php73-ext-dev
       - run: "rm -rf ./* && rm -rf ./.git"
 
 
