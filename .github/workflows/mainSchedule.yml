@@ -2,7 +2,7 @@ name: Build and push docker images - on schedule
 
 on:
   schedule:
-    - cron: '0 2 * * *' # Rebuild the images every night @todo twice per week will be enough -> just for testing
+    - cron: '0 8 * * *' # Rebuild the images every night @todo twice per week will be enough -> just for testing
 
 jobs:
 
@@ -27,6 +27,14 @@ jobs:
           ref: "php73-ext"
       - run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php73-ext
       - run: docker push labordigital/docker-base-images:php73-ext
+      - run: "rm -rf ./* && rm -rf ./.git"
+
+      # Node 10
+      - uses: actions/checkout@v1
+        with:
+          ref: "node10"
+      - run: docker build . --file Dockerfile --tag labordigital/docker-base-images:node10
+      - run: docker push labordigital/docker-base-images:node10
       - run: "rm -rf ./* && rm -rf ./.git"
 
   # Build development images
@@ -55,5 +63,11 @@ jobs:
       - run: docker push labordigital/docker-base-images:php73-ext-dev
       - run: "rm -rf ./* && rm -rf ./.git"
 
-
+      # Node 10 dev
+      - uses: actions/checkout@v1
+        with:
+          ref: "node10-dev"
+      - run: docker build . --file Dockerfile --tag labordigital/docker-base-images:node10-dev
+      - run: docker push labordigital/docker-base-images:node10-dev
+      - run: "rm -rf ./* && rm -rf ./.git"
 
