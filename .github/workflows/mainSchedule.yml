@@ -32,7 +32,7 @@ jobs:
   # Build development images
   build-dev-images:
 
-    needs: [build-base-images, build-ext-images]
+    needs: build-base-images
     runs-on: ubuntu-latest
     steps:
       -
