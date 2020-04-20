@@ -1,15 +1,15 @@
-# TAG: labordigital/docker-base-images:php73
-# Build: docker build -t labordigital/docker-base-images:php73 .
-# Push: docker push labordigital/docker-base-images:php73
+# TAG: labordigital/docker-base-images:php72
+# Build: docker build -t labordigital/docker-base-images:php72 .
+# Push: docker push labordigital/docker-base-images:php72
 
 # Parent package is described here: https://hub.docker.com/_/php/
-FROM php:7.3-apache
+FROM php:7.2-apache
 
 # Define author
 MAINTAINER LABOR.digital <info@labor.digital>
 
 # Set Label
-LABEL description="LABOR Digital PHP7.3"
+LABEL description="LABOR Digital PHP7.2"
 
 # Expose ports
 EXPOSE 80
@@ -71,10 +71,8 @@ RUN apt-get install -y \
 	
 # Install zip extension
 RUN apt-get install -y \
-        libzip-dev \
-        zip \
-  && docker-php-ext-configure zip --with-libzip \
-  && docker-php-ext-install zip
+		zlib1g-dev \
+	&& docker-php-ext-install -j$(nproc) zip
 
 # Install mysql extension
 RUN docker-php-ext-install pdo pdo_mysql mysqli
