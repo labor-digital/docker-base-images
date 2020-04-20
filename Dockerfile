@@ -1,15 +1,15 @@
-# TAG: labordigital/docker-base-images:php56
-# Build: docker build -t labordigital/docker-base-images:php56 .
-# Push: docker push labordigital/docker-base-images:php56
+# TAG: labordigital/docker-base-images:php53
+# Build: docker build -t labordigital/docker-base-images:php53 .
+# Push: docker push labordigital/docker-base-images:php53
 
-# Parent package is described here: https://hub.docker.com/_/php/
-FROM php:5.6-apache
+# Parent package is described here: https://hub.docker.com/r/orsolin/docker-php-5.3-apache/
+FROM orsolin/docker-php-5.3-apache
 
 # Define author
 MAINTAINER LABOR.digital <info@labor.digital>
 
 # Set Label
-LABEL description="LABOR Digital PHP5.6"
+LABEL description="LABOR Digital PHP5.3"
 
 # Expose ports
 EXPOSE 80
@@ -24,14 +24,14 @@ ENV PROJECT_ENV = "prod"
 ENV TERM=xterm
 
 # Install sudo
-RUN apt-get update && apt-get install -y sudo
+RUN apt-get update && apt-get install -y --force-yes sudo
 
 # Configure dpkg | Install locales, keyboard and timezone
 COPY /conf/deb-preseed.txt /tmp/init_locales/deb-preseed.txt
 RUN DEBIAN_FRONTEND=noninteractive \
 	DEBCONF_NONINTERACTIVE_SEEN=true \
 	debconf-set-selections /tmp/init_locales/deb-preseed.txt \
-	&& apt-get update && apt-get install -y \
+	&& apt-get update && apt-get install -y --force-yes \
         locales \
 	&& echo "Europe/Berlin" > /etc/timezone \
     && dpkg-reconfigure -f noninteractive tzdata \
@@ -43,7 +43,7 @@ ENV LC_ALL de_DE.UTF-8
 
 # Create a dummy ssl cert
 RUN apt-get update && \
-    apt-get install -y openssl && \
+    apt-get install -y --force-yes openssl && \
     mkdir /opt/tmpssl && \
     mkdir /var/cert && \
     cd /opt/tmpssl && \
@@ -60,52 +60,40 @@ RUN apt-get update && \
 
 # Install intl
 RUN apt-get update && \
-    apt-get install -y libicu-dev && \
+    apt-get install -y --force-yes libicu-dev && \
     docker-php-ext-install intl
 	
 # Install curl 
-RUN apt-get install -y \
+RUN apt-get install -y --force-yes \
 		curl \
 		libcurl4-gnutls-dev \
-	&& docker-php-ext-install -j$(nproc) curl
+	&& docker-php-ext-install curl
 	
 # Install zip extension
-RUN apt-get install -y \
+RUN apt-get install -y --force-yes \
 		zlib1g-dev \
-	&& docker-php-ext-install -j$(nproc) zip
+	&& docker-php-ext-install zip
 
 # Install mysql extension
 RUN docker-php-ext-install pdo pdo_mysql mysqli mysql
 	
 # Install GD extension
-RUN apt-get install -y \
+RUN apt-get install -y --force-yes \
 		libpng-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
-    && docker-php-ext-install -j$(nproc) \
+    && docker-php-ext-install \
 		iconv \
-		mcrypt \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) \
+    && docker-php-ext-install \
 		gd
-
-# Enable apcu cache
-RUN pecl install \
-		apcu-4.0.11 \
-	&& docker-php-ext-enable \
-		apcu
 
 # Install mbstring
 RUN docker-php-ext-install \
 	mbstring
-
-# Install opcache
-RUN docker-php-ext-install \
-	opcache
 	
 # Install fileinfo
-RUN docker-php-ext-install -j$(nproc) fileinfo
+RUN docker-php-ext-install fileinfo
 
 # Prepare apache modules
 RUN a2enmod rewrite \

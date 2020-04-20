@@ -1,6 +1,6 @@
-# LABOR.digital - PHP 5.6 Base Image
+# LABOR.digital - PHP 5.3 Base Image
 
-A base image for PHP 5.6 with a bunch of extensions already preconfigured.
+A base image for PHP 5.3 with a bunch of extensions already preconfigured.
 
 Note: As we are a company based in germany the locale and timezone are already preconfigured for germany!
 
