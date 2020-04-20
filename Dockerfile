@@ -1,13 +1,13 @@
-# TAG: labordigital/docker-base-images:php73-dev
-# Build: docker build -t labordigital/docker-base-images:php73-dev .
-# Push: docker push labordigital/docker-base-images:php73-dev
-FROM labordigital/docker-base-images:php73
+# TAG: labordigital/docker-base-images:php72-dev
+# Build: docker build -t labordigital/docker-base-images:php72-dev .
+# Push: docker push labordigital/docker-base-images:php72-dev
+FROM labordigital/docker-base-images:php72
 
 # Define author
 MAINTAINER LABOR digital <info@labor.digital>
 
 # Set Label
-LABEL description="Labor Digital PHP7.3 Dev Edition"
+LABEL description="Labor Digital PHP7.2 Dev Edition"
 
 # Install some packages we need in dev
 RUN apt-get update && apt-get install -y \
@@ -40,9 +40,9 @@ RUN sudo -u composer -EH /usr/local/bin/composer.phar global install
 
 # Add phpunit
 RUN apt-get update && apt-get install -y wget \
-	&& wget "https://phar.phpunit.de/phpunit-7.0.phar" \
-	&& chmod +x "phpunit-7.0.phar" \
-	&& mv "phpunit-7.0.phar" /usr/local/bin/phpunit \
+	&& wget "https://phar.phpunit.de/phpunit-6.0.phar" \
+	&& chmod +x "phpunit-6.0.phar" \
+	&& mv "phpunit-6.0.phar" /usr/local/bin/phpunit \
 	&& phpunit --version
 
 # Copy bootstrap-dev.sh
