@@ -1,15 +1,15 @@
-# TAG: labordigital/docker-base-images:php70
-# Build: docker build -t labordigital/docker-base-images:php70 .
-# Push: docker push labordigital/docker-base-images:php70
+# TAG: labordigital/docker-base-images:php56
+# Build: docker build -t labordigital/docker-base-images:php56 .
+# Push: docker push labordigital/docker-base-images:php56
 
 # Parent package is described here: https://hub.docker.com/_/php/
-FROM php:7.0-apache
+FROM php:5.6-apache
 
 # Define author
 MAINTAINER LABOR.digital <info@labor.digital>
 
 # Set Label
-LABEL description="LABOR Digital PHP7.0"
+LABEL description="LABOR Digital PHP5.6"
 
 # Expose ports
 EXPOSE 80
@@ -75,7 +75,7 @@ RUN apt-get install -y \
 	&& docker-php-ext-install -j$(nproc) zip
 
 # Install mysql extension
-RUN docker-php-ext-install pdo pdo_mysql mysqli
+RUN docker-php-ext-install pdo pdo_mysql mysqli mysql
 	
 # Install GD extension
 RUN apt-get install -y \
@@ -83,17 +83,16 @@ RUN apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
-	&& yes '' | pecl install -f mcrypt \
-	&& echo "extension=mcrypt.so" > /usr/local/etc/php/conf.d/mcrypt.ini \
     && docker-php-ext-install -j$(nproc) \
 		iconv \
+		mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) \
 		gd
 
 # Enable apcu cache
 RUN pecl install \
-		apcu \
+		apcu-4.0.11 \
 	&& docker-php-ext-enable \
 		apcu
 
