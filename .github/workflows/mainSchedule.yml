@@ -13,6 +13,14 @@ jobs:
       - name: Login to DockerHub Registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
+      # PHP 72
+      - uses: actions/checkout@v1
+        with:
+          ref: "php72"
+      - run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php72
+      - run: docker push labordigital/docker-base-images:php72
+      - run: "rm -rf ./* && rm -rf ./.git"
+
       # PHP 73
       - uses: actions/checkout@v1
         with:
@@ -46,6 +54,14 @@ jobs:
       -
         name: Login to DockerHub Registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      # PHP 72 dev
+      - uses: actions/checkout@v1
+        with:
+          ref: "php72-dev"
+      - run: docker build . --file Dockerfile --tag labordigital/docker-base-images:php72-dev
+      - run: docker push labordigital/docker-base-images:php72-dev
+      - run: "rm -rf ./* && rm -rf ./.git"
 
       # PHP 73 dev
       - uses: actions/checkout@v1
