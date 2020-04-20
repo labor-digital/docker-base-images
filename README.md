@@ -1,6 +1,6 @@
-# LABOR.digital - PHP 7.0 Base Image - Dev Edition
+# LABOR.digital - PHP 5.6 Base Image - Dev Edition
 
-The development edition for our PHP [7.0 docker base image](https://github.com/labor-digital/docker-base-images/tree/php70). Why a separate dev version? You can use this version of the base image for dev or pipeline builds that require access to composer or phpunit (which are already pre-installed in this version) and simply pass the required artifacts to your build production image.
+The development edition for our PHP [5.6 docker base image](https://github.com/labor-digital/docker-base-images/tree/php56). Why a separate dev version? You can use this version of the base image for dev or pipeline builds that require access to composer or phpunit (which are already pre-installed in this version) and simply pass the required artifacts to your build production image.
 
 Note: As we are a company based in germany the locale and timezone are already preconfigured for germany!
 
