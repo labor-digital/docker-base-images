@@ -1,15 +1,15 @@
-# TAG: labordigital/docker-base-images:php72
-# Build: docker build -t labordigital/docker-base-images:php72 .
-# Push: docker push labordigital/docker-base-images:php72
+# TAG: labordigital/docker-base-images:php70
+# Build: docker build -t labordigital/docker-base-images:php70 .
+# Push: docker push labordigital/docker-base-images:php70
 
 # Parent package is described here: https://hub.docker.com/_/php/
-FROM php:7.2-apache
+FROM php:7.0-apache
 
 # Define author
 MAINTAINER LABOR.digital <info@labor.digital>
 
 # Set Label
-LABEL description="LABOR Digital PHP7.2"
+LABEL description="LABOR Digital PHP7.0"
 
 # Expose ports
 EXPOSE 80
