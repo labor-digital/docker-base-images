@@ -1,13 +1,13 @@
-# TAG: labordigital/docker-base-images:php72-dev
-# Build: docker build -t labordigital/docker-base-images:php72-dev .
-# Push: docker push labordigital/docker-base-images:php72-dev
-FROM labordigital/docker-base-images:php72
+# TAG: labordigital/docker-base-images:php70-dev
+# Build: docker build -t labordigital/docker-base-images:php70-dev .
+# Push: docker push labordigital/docker-base-images:php70-dev
+FROM labordigital/docker-base-images:php70
 
 # Define author
 MAINTAINER LABOR digital <info@labor.digital>
 
 # Set Label
-LABEL description="Labor Digital PHP7.2 Dev Edition"
+LABEL description="Labor Digital PHP7.0 Dev Edition"
 
 # Install some packages we need in dev
 RUN apt-get update && apt-get install -y \
