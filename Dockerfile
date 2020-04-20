@@ -58,21 +58,11 @@ RUN apt-get update && \
     cd / && \
     rm -rf /opt/tmpssl
 
-# Install intl
-RUN apt-get update && \
-    apt-get install -y --force-yes libicu-dev && \
-    docker-php-ext-install intl
-	
 # Install curl 
 RUN apt-get install -y --force-yes \
 		curl \
 		libcurl4-gnutls-dev \
 	&& docker-php-ext-install curl
-	
-# Install zip extension
-RUN apt-get install -y --force-yes \
-		zlib1g-dev \
-	&& docker-php-ext-install zip
 
 # Install mysql extension
 RUN docker-php-ext-install pdo pdo_mysql mysqli mysql
