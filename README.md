@@ -1,6 +1,6 @@
-# LABOR.digital - PHP 7.2 Base Image
+# LABOR.digital - PHP 7.0 Base Image
 
-A base image for PHP 7.2 with a bunch of extensions already preconfigured.
+A base image for PHP 7.0 with a bunch of extensions already preconfigured.
 
 Note: As we are a company based in germany the locale and timezone are already preconfigured for germany!
 
