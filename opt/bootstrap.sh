@@ -15,6 +15,12 @@ if [ -f "/opt/bootstrap-dir.sh" ]; then
   source /opt/bootstrap-dir.sh
 fi
 
+# Allows child containers to extend the bootstrap
+# This is used for the development container!
+if [ -f "/opt/bootstrap-extension.sh" ]; then
+  source /opt/bootstrap-extension.sh
+fi
+
 # Run project specific bootstrap if required
 if [ -f "/opt/bootstrap-project.sh" ]; then
   source /opt/bootstrap-project.sh
