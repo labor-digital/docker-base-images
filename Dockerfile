@@ -27,3 +27,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Install dev symlinker
 RUN /usr/local/bin/composer.phar global require labor-digital/composer-dev-symlink
+
+# Inject bootstrap extension
+COPY opt/bootstrap-extension.sh /opt/bootstrap-extension.sh
+RUN chmod +x /opt/bootstrap-extension.sh
