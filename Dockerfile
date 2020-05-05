@@ -15,10 +15,6 @@ LABEL description="LABOR Digital PHP7.3"
 EXPOSE 80
 EXPOSE 443
 
-# Set default environment variables
-ENV APACHE_WEBROOT = "/var/www/html"
-ENV PROJECT_ENV = "prod"
-
 # Set console to xterm to fix problems with nano and other console comands in pseudo-TTY connections
 # @see http://stackoverflow.com/questions/27826241/running-nano-in-docker-container
 ENV TERM=xterm
@@ -123,27 +119,21 @@ COPY conf/000-default.conf /etc/apache2/sites-available/
 COPY conf/apache2.conf /etc/apache2/
 COPY conf/php.ini /usr/local/etc/php/
 
-# Setup a root bashrc for the composer-alias
+# Setup global aliases
 COPY conf/.bashrc /root/
 
-# Copy permissions.sh
-COPY opt/permissions.sh /opt/permissions.sh
-RUN chmod +x /opt/permissions.sh
-
-# Copy bootstrap-project.sh
-COPY opt/bootstrap-project.sh /opt/bootstrap-project.sh
-RUN chmod +x /opt/bootstrap-project.sh
-
-# Copy bootstrap.sh
+# Copy basic shell files
 COPY opt/bootstrap.sh /opt/bootstrap.sh
 RUN chmod +x /opt/bootstrap.sh
-
-# Copy directories.sh
-COPY opt/directories.sh /opt/directories.sh
-RUN chmod +x /opt/directories.sh
+COPY opt/bootstrap-functions.sh /opt/bootstrap-functions.sh
+RUN chmod +x /opt/bootstrap-functions.sh
+COPY opt/bootstrap-env-vars.sh /opt/bootstrap-env-vars.sh
+RUN chmod +x /opt/bootstrap-env-vars.sh
 
 # Create data and logs directory and set the correct folder permissions
 RUN mkdir /var/www/html_data \
-	&& mkdir /var/www/logs
+	&& chmod -R 777 /var/www/html_data \
+	&& mkdir /var/www/logs \
+	&& chmod -R 777 /var/www/logs
 
 ENTRYPOINT ["/opt/bootstrap.sh"]
