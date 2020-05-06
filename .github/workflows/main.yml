@@ -1,25 +1,53 @@
 name: Build and push base - on push
 
 on:
+  schedule:
+    - cron: '0 8 * * *' # Rebuild the images every night @todo twice per week will be enough -> just for testing
   push:
     branches:
-      - '*'         # matches every branch
-      - '*/*'       # matches every branch containing a single '/'
-      - '!master'   # excludes master
+      - master
+      - mono-repo
 
 jobs:
-  build:
+  build-php73:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Login to DockerHub Registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-      - name: Get the tag
-        id: vars
-        shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/heads/})"
-      - name: Build the tagged Docker image
-        run: docker build . --file Dockerfile --tag labordigital/docker-base-images:${{steps.vars.outputs.tag}}
-      - name: Push the tagged Docker image
-        run: docker push labordigital/docker-base-images:${{steps.vars.outputs.tag}}
 
+      # Base Image
+      - name: Build the Docker Base image
+        run: docker build php73/php73 --file Dockerfile --tag labordigital/docker-base-images:php73
+      - name: Push the tagged Docker image
+        run: docker push labordigital/docker-base-images:php73
+
+      # Dev Image
+      - name: Build the Docker Dev image
+        run: docker build php73/php73-dev --file Dockerfile --tag labordigital/docker-base-images:php73-dev
+      - name: Push the tagged Docker image
+        run: docker push labordigital/docker-base-images:php73-dev
+
+      # Extended Image
+      - name: Build the extended Docker image
+        run: docker build php73/php73-ext --file Dockerfile --tag labordigital/docker-base-images:php73-ext
+      - name: Push the tagged Docker image
+        run: docker push labordigital/docker-base-images:php73-ext
+
+      # Extended Dev Image
+      - name: Build the extended Docker Dev image
+        run: docker build php73/php73-ext-dev --file Dockerfile --tag labordigital/docker-base-images:php73-ext-dev
+      - name: Push the tagged Docker image
+        run: docker push labordigital/docker-base-images:php73-ext-dev
+
+      # Legacy Image
+      - name: Build the legacy Docker image
+        run: docker build php73/php73-legacy --file Dockerfile --tag labordigital/docker-base-images:php73-legacy
+      - name: Push the tagged Docker image
+        run: docker push labordigital/docker-base-images:php73-legacy
+
+      # Legacy Dev Image
+      - name: Build the legacy Docker Dev image
+        run: docker build php73/php73-legacy-dev --file Dockerfile --tag labordigital/docker-base-images:php73-legacy-dev
+      - name: Push the tagged Docker image
+        run: docker push labordigital/docker-base-images:php73-legacy-dev

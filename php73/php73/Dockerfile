@@ -35,7 +35,6 @@ RUN DEBIAN_FRONTEND=noninteractive \
 	&& rm -rf /tmp/init_locales
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
-ENV LC_ALL de_DE.UTF-8
 
 # Create a dummy ssl cert
 RUN apt-get update && \
@@ -128,8 +127,10 @@ RUN chmod +x /opt/bootstrap.sh
 
 # Create data and logs directory and set the correct folder permissions
 RUN mkdir /var/www/html_data \
-	&& chmod -R 777 /var/www/html_data \
+	&& chown -R www-data.www-data /var/www/html_data \
+	&& chmod -R u=rwX,g=rwX,o-rwx /var/www/html_data \
 	&& mkdir /var/www/logs \
-	&& chmod -R 777 /var/www/logs
+	&& chown -R www-data.www-data /var/www/logs \
+	&& chmod -R u=rwX,g=rwX,o-rwx /var/www/logs
 
 ENTRYPOINT ["/opt/bootstrap.sh"]

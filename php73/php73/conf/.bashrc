@@ -14,7 +14,8 @@
 set_initial_directory_permissions(){
 	# Prepare the variables
 	DIR=$1
-	REQ_STAT=${2:-"777"}
+	REQ_STAT=${2:-"770"}
+	REQ_OWNER=${3:-"www-data.www-data"}
 
 	# Check if we got a directory or skip
 	if [[ -d $DIR ]]; then
@@ -33,6 +34,7 @@ set_initial_directory_permissions(){
 		echo "Permissions for $DIR should be correct (marker exists at: $MARKER_FILE_NAME)"
 	else
 		echo "Setting permissions for $DIR"
+		chown -R $REQ_OWNER
 		chmod -Rv $REQ_STAT "$DIR"
 		touch $MARKER_FILE_NAME
 	fi

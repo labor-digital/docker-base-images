@@ -10,8 +10,8 @@ export APACHE_LOG_DIR=${APACHE_LOG_DIR:-"/var/www/logs"}
 export PROJECT_ENV=${PROJECT_ENV:-"prod"}
 
 # Create additional directories if required
-if [ -f "/opt/bootstrap-dir.sh" ]; then
-  source /opt/bootstrap-dir.sh
+if [ -f "/opt/build_and_bootstrap-dir.sh" ]; then
+  source /opt/build_and_bootstrap-dir.sh
 fi
 
 # Allows child containers to extend the bootstrap
