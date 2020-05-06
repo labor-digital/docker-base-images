@@ -10,12 +10,13 @@
 #
 # Accepts 2 parameters
 # @param $directory The path to the directory to set the permissions for
-# @param $permissions By default 777 but can be set to any other permission value
+# @param $permissions By default "u=rwX,g=rwX,o-rwx" but can be set to any other permission value
+# @param $owner By default "www-data.www-data" to define the owner of the directory
 set_initial_directory_permissions(){
 	# Prepare the variables
 	DIR=$1
-	REQ_STAT=${2:-"770"}
-	REQ_OWNER=${3:-"www-data.www-data"}
+	STAT=${2:-"u=rwX,g=rwX,o-rwx"}
+	OWNER=${3:-"www-data.www-data"}
 
 	# Check if we got a directory or skip
 	if [[ -d $DIR ]]; then
@@ -34,8 +35,8 @@ set_initial_directory_permissions(){
 		echo "Permissions for $DIR should be correct (marker exists at: $MARKER_FILE_NAME)"
 	else
 		echo "Setting permissions for $DIR"
-		chown -R $REQ_OWNER
-		chmod -Rv $REQ_STAT "$DIR"
+		chown -R $OWNER
+		chmod -R $STAT "$DIR"
 		touch $MARKER_FILE_NAME
 	fi
 }
@@ -46,14 +47,17 @@ set_initial_directory_permissions(){
 # @param $directory The path to the directory to create if it does not exist
 # @param $permissions Optional parameter to set the initial permissions of the directory to
 #                     if omitted the default permissions of your OS are kept without modification
+# @param $owner By default "www-data.www-data" to define the owner of the directory
+# 					  if omitted the default owner is
 ensure_directory(){
 	DIR=$1
 	STAT=${2:-"NONE"}
+	OWNER=${3}
 	mkdir -p $DIR
 	if [[ $STAT = "NONE" ]]; then
 		:
 	else
-		set_initial_directory_permissions $DIR $STAT
+		set_initial_directory_permissions $DIR $STAT $OWNER
 	fi
 }
 
