@@ -122,13 +122,9 @@ COPY conf/php.ini /usr/local/etc/php/
 # Setup global aliases
 COPY conf/.bashrc /root/
 
-# Copy basic shell files
+# Add our entrypoint
 COPY opt/bootstrap.sh /opt/bootstrap.sh
 RUN chmod +x /opt/bootstrap.sh
-COPY opt/bootstrap-functions.sh /opt/bootstrap-functions.sh
-RUN chmod +x /opt/bootstrap-functions.sh
-COPY opt/bootstrap-env-vars.sh /opt/bootstrap-env-vars.sh
-RUN chmod +x /opt/bootstrap-env-vars.sh
 
 # Create data and logs directory and set the correct folder permissions
 RUN mkdir /var/www/html_data \

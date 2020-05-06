@@ -4,11 +4,10 @@
 # Load global aliases
 source ~/.bashrc
 
-# Load additional functions
-source /opt/bootstrap-functions.sh
-
-# Define default environment variables if the have not been set yet
-source /opt/bootstrap-env-vars.sh
+# Set default environment variables
+export APACHE_WEBROOT=${APACHE_WEBROOT:-"/var/www/html"}
+export APACHE_LOG_DIR=${APACHE_LOG_DIR:-"/var/www/logs"}
+export PROJECT_ENV=${PROJECT_ENV:-"prod"}
 
 # Create additional directories if required
 if [ -f "/opt/bootstrap-dir.sh" ]; then
