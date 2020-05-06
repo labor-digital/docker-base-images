@@ -9,6 +9,37 @@ on:
       - mono-repo
 
 jobs:
+  build-php72:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      # Base Image
+      - name: Build the Docker Base image
+        run: cd php72/php72 && docker build . --file Dockerfile --tag labordigital/docker-base-images:php72
+      - name: Push the image
+        run: docker push labordigital/docker-base-images:php72
+
+      # Dev Image
+      - name: Build the Docker Dev image
+        run: cd php72/php72-dev && docker build . --file Dockerfile --tag labordigital/docker-base-images:php72-dev
+      - name: Push the image
+        run: docker push labordigital/docker-base-images:php72-dev
+
+      # Legacy Image
+      - name: Build the legacy Docker image
+        run: cd php72/php72-legacy && docker build . --file Dockerfile --tag labordigital/docker-base-images:php72-legacy
+      - name: Push the image
+        run: docker push labordigital/docker-base-images:php72-legacy
+
+      # Legacy Dev Image
+      - name: Build the legacy Docker Dev image
+        run: cd php72/php72-legacy-dev && docker build . --file Dockerfile --tag labordigital/docker-base-images:php72-legacy-dev
+      - name: Push the image
+        run: docker push labordigital/docker-base-images:php72-legacy-dev
+
   build-php73:
     runs-on: ubuntu-latest
     steps:
