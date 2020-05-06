@@ -16,8 +16,8 @@ RUN apt-get update && apt-get install -y \
 		mariadb-client \
 		git
 
-# Setup a root bashrc for the composer-alias
-COPY conf/.bashrc /root/
+# Add an extension to the bashrc to register the composer alias
+COPY conf/.bashrc-extension /root/
 
 # Add development configuration
 COPY /conf/99-environment.ini /usr/local/etc/php/conf.d/

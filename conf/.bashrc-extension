@@ -1,7 +1,3 @@
-set_permissions(){
-  echo "You should not use set_permissions() anymore!"
-}
-
 c() {
 	/usr/local/bin/composer.phar "$@"
 }
