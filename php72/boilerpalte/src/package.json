@@ -1,25 +1,20 @@
 {
-  "name": "@labor/{{PROJECT_NAME}}",
-  "author": "LABOR.digital",
-  "version": "1.0.0",
-  "description": "LABOR App Boilerplate",
-  "main": "index.js",
-  "scripts": {
-	"build": "labor-asset-building build",
-	"watch": "labor-asset-building watch",
-	"test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-	"type": "git",
-	"url": "git+ssh://git@bitbucket.org/labor-digital/kunde-projekt-app_name.git"
-  },
-  "devDependencies": {
-	"@labor/asset-building": "*"
-  },
-  "labor": {
-	"builderVersion": 2,
-	"apps": []
-  },
-  "license": "Apache-2.0",
-  "homepage": "https://bitbucket.org/labor-digital/kunde-projekt-app_name#readme"
+	"name": "@labor-digital/{{PROJECT_NAME}}",
+	"author": "LABOR.digital",
+	"version": "1.0.0",
+	"description": "LABOR App Boilerplate",
+	"main": "index.js",
+	"scripts": {
+		"build": "labor-asset-building build",
+		"watch": "labor-asset-building watch",
+		"analyze": "labor-asset-building analyze",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"devDependencies": {
+		"@labor-digital/asset-building": "*"
+	},
+	"labor": {
+		"apps": []
+	},
+	"license": "Apache-2.0"
 }

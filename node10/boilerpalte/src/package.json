@@ -8,7 +8,9 @@
 	"build": "labor-asset-building build",
 	"watch": "labor-asset-building watch",
 	"analyze": "labor-asset-building analyze",
-	"test": "echo \"Error: no test specified\" && exit 1"
+	"test": "echo \"Error: no test specified\" && exit 1",
+	"start": "node index.js",
+	"start:development": "nodemon -L index.js"
   },
   "devDependencies": {
 	"@labor-digital/asset-building": "*"
