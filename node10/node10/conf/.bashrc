@@ -1,3 +1,4 @@
+
 # Helper to make sure a directory has the correct permissions, recursively.
 # BUT it will assume that between runs the permissions will not change
 # therefore it writes a marker file into the directory to check if it already
@@ -10,17 +11,17 @@
 # Accepts 2 parameters
 # @param $directory The path to the directory to set the permissions for
 # @param $permissions By default "u=rwX,g=rwX,o-rwx" but can be set to any other permission value
-# @param $owner By default "node.node" to define the owner of the directory
+# @param $owner By default "www-data.www-data" to define the owner of the directory
 set_initial_directory_permissions(){
 	# Prepare the variables
-	DIR=$1
-	STAT=${2:-"u=rwX,g=rwX,o-rwx"}
-	OWNER=${3:-"node.node"}
+	DIR="$1"
+	STAT="${2:-"u=rwX,g=rwX,o-rwx"}"
+	OWNER="${3:-"node.node"}"
 
 	# Check if we got a directory or skip
-	if [[ -d $DIR ]]; then
+	if [[ -d "$DIR" ]]; then
 		:
-	elif [[ -f $DIR ]]; then
+	elif [[ -f "$DIR" ]]; then
 		echo "FAIL: $DIR is a file not a directory - skip!"
 		return
   	else
@@ -34,9 +35,9 @@ set_initial_directory_permissions(){
 		echo "Permissions for $DIR should be correct (marker exists at: $MARKER_FILE_NAME)"
 	else
 		echo "Setting permissions for $DIR"
-		chown -R $OWNER
-		chmod -R $STAT "$DIR"
-		touch $MARKER_FILE_NAME
+		chown -R "$OWNER" "$DIR"
+		chmod -R "$STAT" "$DIR"
+		touch "$MARKER_FILE_NAME"
 	fi
 }
 
@@ -44,20 +45,14 @@ set_initial_directory_permissions(){
 # It will also call set_initial_directory_permissions() on the directory if you pass additional permissions
 # as a second parameter
 # @param $directory The path to the directory to create if it does not exist
-# @param $permissions Optional parameter to set the initial permissions of the directory to
-#                     if omitted the default permissions of your OS are kept without modification
+# @param $permissions By default "u=rwX,g=rwX,o-rwx" but can be set to any other permission value
 # @param $owner By default "www-data.www-data" to define the owner of the directory
-# 					  if omitted the default owner is
 ensure_directory(){
-	DIR=$1
-	STAT=${2:-"NONE"}
-	OWNER=${3}
-	mkdir -p $DIR
-	if [[ $STAT = "NONE" ]]; then
-		:
-	else
-		set_initial_directory_permissions $DIR $STAT $OWNER
-	fi
+	DIR="$1"
+	STAT="${2}"
+	OWNER="${3}"
+	mkdir -p "$DIR"
+	set_initial_directory_permissions "$DIR" "$STAT" "$OWNER"
 }
 
 # Deprecated helper to update permissions -> Don't use this anymore!
