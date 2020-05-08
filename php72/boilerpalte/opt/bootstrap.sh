@@ -1,3 +1,3 @@
 #!/bin/bash
-# ORDER: 4 | WHERE: PROD and DEV (Both at container start Container Start)
+# (BOOT) Run additional scripts when your container boots up
 # This file may be used to execute additional scripts for your container
