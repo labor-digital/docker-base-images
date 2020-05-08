@@ -1,4 +1,10 @@
 
+# Allows you to run any command as the www-data user
+# Simply pass your normal command to this command as argument like: "$ asUser mkdir /your/directory"
+asUser() {
+	sudo -u www-data -EH "$@"
+}
+
 # Helper to make sure a directory has the correct permissions, recursively.
 # BUT it will assume that between runs the permissions will not change
 # therefore it writes a marker file into the directory to check if it already
@@ -11,48 +17,39 @@
 # Accepts 2 parameters
 # @param $directory The path to the directory to set the permissions for
 # @param $permissions By default "u=rwX,g=rwX,o-rwx" but can be set to any other permission value
-# @param $owner By default "www-data.www-data" to define the owner of the directory
-set_initial_directory_permissions(){
-	# Prepare the variables
+setPerms() {
 	DIR="$1"
 	STAT="${2:-"u=rwX,g=rwX,o-rwx"}"
-	OWNER="${3:-"www-data.www-data"}"
 
 	# Check if we got a directory or skip
 	if [[ -d "$DIR" ]]; then
 		:
-	elif [[ -f "$DIR" ]]; then
-		echo "FAIL: $DIR is a file not a directory - skip!"
+	else
+		echo "FAIL: $DIR is not a directory - skip!"
 		return
-  	else
-    	echo "FAIL: $DIR does not exist - skip!"
-    return
-  	fi
+	fi
 
-	# Check if the marker already exists
-	MARKER_FILE_NAME="$DIR/perms.set"
+	# Update the permissions if we don't have the marker yet
+	HASH=$(echo -n "$STAT" | md5sum | awk '{print $1}')
+	MARKER_FILE_NAME="$DIR/perms-$HASH.set"
 	if [ -f "$MARKER_FILE_NAME" ]; then
 		echo "Permissions for $DIR should be correct (marker exists at: $MARKER_FILE_NAME)"
 	else
-		echo "Setting permissions for $DIR"
-		chown -R "$OWNER" "$DIR"
+		echo "Setting permissions for $DIR, Permissions: $STAT"
 		chmod -R "$STAT" "$DIR"
-		touch "$MARKER_FILE_NAME"
+		asUser touch "$MARKER_FILE_NAME"
 	fi
 }
 
 # Simple helper to make sure a given directory exists. If it not exists it will create it recursively
-# It will also call set_initial_directory_permissions() on the directory if you pass additional permissions
-# as a second parameter
+# It will also call setPerms() on the directory if you pass additional permissions
+# as a second parameter. The directory will be created as the www-data user
 # @param $directory The path to the directory to create if it does not exist
 # @param $permissions By default "u=rwX,g=rwX,o-rwx" but can be set to any other permission value
-# @param $owner By default "www-data.www-data" to define the owner of the directory
-ensure_directory(){
+makeDir() {
 	DIR="$1"
-	STAT="${2}"
-	OWNER="${3}"
-	mkdir -p "$DIR"
-	set_initial_directory_permissions "$DIR" "$STAT" "$OWNER"
+	asUser mkdir -p "$DIR"
+	setPerms "$DIR"
 }
 
 # Deprecated helper to update permissions -> Don't use this anymore!

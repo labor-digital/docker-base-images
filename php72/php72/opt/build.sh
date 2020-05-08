@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# The main entrypoint to the container
+# Runs when the container is being build
+
 # Load global aliases
 source /root/.bashrc
 
@@ -12,15 +13,8 @@ if [ -f "/opt/build_and_bootstrap-dir.sh" ]; then
   source /opt/build_and_bootstrap-dir.sh
 fi
 
-# Allows child containers to extend the bootstrap
+# Allows child containers to extend the build process
 # This is used for the development container!
-if [ -f "/opt/bootstrap-extension.sh" ]; then
-  source /opt/bootstrap-extension.sh
+if [ -f "/opt/build-extension.sh" ]; then
+  source /opt/build-extension.sh
 fi
-
-# Run project specific bootstrap if required
-if [ -f "/opt/bootstrap-project.sh" ]; then
-  source /opt/bootstrap-project.sh
-fi
-
-apache2-foreground

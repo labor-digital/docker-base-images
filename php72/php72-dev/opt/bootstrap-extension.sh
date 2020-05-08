@@ -2,11 +2,11 @@
 
 echo "Preparing development environment..."
 
-# Check if we have a bootstrap-env file to run
+# Check if we have a build_and_bootstrap-env file to run
 if [ -f "/opt/build_and_bootstrap-env.sh" ]; then
   # Check if we have the env marker already before running the script
   if [ -f "/opt/build_and_bootstrap-env.ran" ]; then
-    echo "Environment is already prepared (marker exists at: /opt/bootstrap-env.ran)"
+    echo "Environment is already prepared (marker exists at: /opt/build_and_bootstrap-env.ran)"
   else
     source /opt/build_and_bootstrap-env.sh
     [[ $? -ne 0 ]] && exit 1

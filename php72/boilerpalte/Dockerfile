@@ -14,10 +14,13 @@ ADD src/. /var/www/html
 
 # Add and run our additional shell scripts
 COPY opt/build_and_bootstrap-dir.sh /opt/build_and_bootstrap-dir.sh
-RUN chmod +x /opt/build_and_bootstrap-dir.sh && /opt/build_and_bootstrap-dir.sh
+RUN chmod +x /opt/build_and_bootstrap-dir.sh
 COPY opt/build_and_bootstrap-env.sh /opt/build_and_bootstrap-env.sh
-RUN chmod +x /opt/build_and_bootstrap-env.sh && /opt/build_and_bootstrap-env.sh
+RUN chmod +x /opt/build_and_bootstrap-env.sh
 COPY opt/bootstrap-project.sh /opt/bootstrap-project.sh
 RUN chmod +x /opt/bootstrap-project.sh
+
+# Run our build script
+RUN /opt/build.sh
 
 ENV APACHE_WEBROOT=${APACHE_WEBROOT}

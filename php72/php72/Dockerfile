@@ -125,12 +125,24 @@ COPY conf/.bashrc /root/
 COPY opt/bootstrap.sh /opt/bootstrap.sh
 RUN chmod +x /opt/bootstrap.sh
 
+# Add our build scripts
+COPY opt/build.sh /opt/build.sh
+RUN chmod +x /opt/build.sh
+COPY opt/build_and_bootstrap-env_vars.sh /opt/build_and_bootstrap-env_vars.sh
+RUN chmod +x /opt/build_and_bootstrap-env_vars.sh
+
 # Create data and logs directory and set the correct folder permissions
-RUN mkdir /var/www/html_data \
+RUN \
+	mkdir -p /var/www/html_data \
 	&& chown -R www-data.www-data /var/www/html_data \
 	&& chmod -R u=rwX,g=rwX,o-rwx /var/www/html_data \
-	&& mkdir /var/www/logs \
+
+	&& mkdir -p /var/www/logs \
 	&& chown -R www-data.www-data /var/www/logs \
-	&& chmod -R u=rwX,g=rwX,o-rwx /var/www/logs
+	&& chmod -R u=rwX,g=rwX,o-rwx /var/www/logs \
+
+	&& mkdir -p /var/www/html \
+	&& chown -R www-data.www-data /var/www/html \
+	&& chmod -R u=rwX,g=rwX,o-rwx /var/www/html
 
 ENTRYPOINT ["/opt/bootstrap.sh"]

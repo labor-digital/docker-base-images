@@ -28,3 +28,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Inject bootstrap extension
 COPY opt/bootstrap-extension.sh /opt/bootstrap-extension.sh
 RUN chmod +x /opt/bootstrap-extension.sh
+
+# Make composer home directory
+RUN \
+	mkdir -p /var/www/.composer \
+    && chown -R www-data.www-data /var/www/.composer \
+    && chmod -R u=rwX,g=rwX,o-rwx /var/www/.composer

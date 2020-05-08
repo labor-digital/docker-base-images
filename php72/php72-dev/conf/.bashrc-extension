@@ -1,9 +1,9 @@
 c() {
-	/usr/local/bin/composer.phar "$@"
+	 sudo -u www-data -EH /usr/local/bin/composer.phar "$@"
 }
 
 composer(){
-	/usr/local/bin/composer.phar "$@"
+	sudo -u www-data -EH /usr/local/bin/composer.phar "$@"
 	if [ $? -ne 0 ]
 	then
 			exit 1
