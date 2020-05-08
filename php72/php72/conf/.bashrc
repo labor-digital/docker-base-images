@@ -55,7 +55,7 @@ ensure_perms() {
 	# Check if we got a directory or skip
 	if [[ -d "$DIR" ]]; then
 		:
-	if [[ -f "$DIR" ]]; then
+	elif [[ -f "$DIR" ]]; then
 		echo "Setting permissions for $DIR to: $STAT"
 		chown -R "$DEFAULT_OWNER" "$DIR"
 		chmod -R "$STAT" "$DIR"
