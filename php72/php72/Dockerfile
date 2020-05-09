@@ -126,7 +126,7 @@ SHELL ["/bin/bash", "-c"]
 
 # Add our scripts
 COPY opt /opt
-RUN find /opt/base -type f -iname "*.sh" -exec chmod +x {} \;
+RUN find /opt -type f -iname "*.sh" -exec chmod +x {} \;
 
 # Create data and logs directory and set the correct folder permissions
 RUN source /root/.bashrc \
@@ -134,4 +134,4 @@ RUN source /root/.bashrc \
 	&& ensure_dir /var/www/html \
 	&& ensure_dir /var/www/logs
 
-ENTRYPOINT ["/opt/base/bootstrap.sh"]
+ENTRYPOINT ["/opt/bootstrap.sh"]

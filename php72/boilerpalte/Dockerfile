@@ -11,13 +11,14 @@ ARG DOCKER_BASE_TAG
 #FROM ${DOCKER_BASE_IMAGE}:${DOCKER_BASE_TAG}-dev
 #
 ## Add and run our additional shell scripts
-#COPY opt /opt
-#RUN find /opt/ -type f -iname "*.sh" -exec chmod +x {} \;
+#COPY opt /opt/project
+#RUN find /opt/project -type f -iname "*.sh" -exec chmod +x {} \;
 #
 ## Prepare build environment
 #ADD src/ /var/www/html/
 #RUN source /root/.bashrc \
-#	&& chown -R "$DEFAULT_OWNER" /var/www/html
+#	&& chown -R "$DEFAULT_OWNER" /var/www/html \
+#	&& chmod -R u=rX,g=rX,o-rwx /var/www/html
 #RUN ls -la /var/www/html
 #RUN /opt/dev/prepare-build-env.sh
 #
@@ -42,10 +43,13 @@ MAINTAINER LABOR.digital <info@labor.digital>
 # Comment out the "ADD" line and uncomment the "COPY" line when you want to use the multi-step build
 ADD src/. /var/www/html
 #COPY --from=0 /var/www/html/vendor /var/www/html
+RUN source /root/.bashrc \
+	&& chown -R "$DEFAULT_OWNER" /var/www/html \
+	&& chmod -R u=rX,g=rX,o-rwx /var/www/html
 
 # Add and run our additional shell scripts
-COPY opt /opt
-RUN find /opt/ -type f -iname "*.sh" -exec chmod +x {} \;
+COPY opt /opt/project
+RUN find /opt/project -type f -iname "*.sh" -exec chmod +x {} \;
 
 # Run our build script
 RUN /opt/build.sh

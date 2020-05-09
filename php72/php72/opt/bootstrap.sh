@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# The main entrypoint to the container
 # Load global aliases
 source /root/.bashrc
 
@@ -13,8 +12,8 @@ if [ -f "/opt/dev/bootstrap.sh" ]; then
 fi
 
 # Run project specific bootstrap if required
-if [ -f "/opt/bootstrap.sh" ]; then
-  source /opt/bootstrap.sh
+if [ -f "/opt/project/bootstrap.sh" ]; then
+  source /opt/project/bootstrap.sh
 fi
 
 # Set the correct permissions for the files

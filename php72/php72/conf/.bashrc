@@ -79,8 +79,8 @@ ensure_perms() {
 
 # Helper to call the /opt/permissions.sh file if it exists
 set_permissions() {
-	if [ -f "/opt/permissions.sh" ]; then
-		source /opt/permissions.sh
+	if [ -f "/opt/project/permissions.sh" ]; then
+		source /opt/project/permissions.sh
 	fi
 }
 
