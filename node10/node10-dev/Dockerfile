@@ -19,9 +19,10 @@ RUN apt-get update && apt-get install -y \
 # Install some global dependencies
 RUN npm i -g nodemon npm-check-updates
 
-# Setup a root bashrc for the composer-alias
-COPY conf/.bashrc-extension /root/
+# Add an extension to the bashrc to register the composer alias
+COPY conf/bashrc-dev.sh /root/
+RUN chmod +x /root/bashrc-dev.sh
 
-# Inject bootstrap extension
-COPY opt/bootstrap-extension.sh /opt/
-RUN chmod +x /opt/bootstrap-extension.sh
+# Add our additional scripts
+COPY opt /opt
+RUN find /opt/dev -type f -iname "*.sh" -exec chmod +x {} \;

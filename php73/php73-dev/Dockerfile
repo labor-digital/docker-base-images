@@ -17,7 +17,8 @@ RUN apt-get update && apt-get install -y \
 		git
 
 # Add an extension to the bashrc to register the composer alias
-COPY conf/.bashrc-extension /root/
+COPY conf/bashrc-dev.sh /root/
+RUN chmod +x /root/bashrc-dev.sh
 
 # Add development configuration
 COPY /conf/99-environment.ini /usr/local/etc/php/conf.d/
@@ -25,6 +26,10 @@ COPY /conf/99-environment.ini /usr/local/etc/php/conf.d/
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 
-# Inject bootstrap extension
-COPY opt/bootstrap-extension.sh /opt/bootstrap-extension.sh
-RUN chmod +x /opt/bootstrap-extension.sh
+# Add our additional scripts
+COPY opt /opt
+RUN find /opt/dev -type f -iname "*.sh" -exec chmod +x {} \;
+
+# Make composer home directory
+RUN source /root/.bashrc \
+	&& ensure_dir /var/www/.composer

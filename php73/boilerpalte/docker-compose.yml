@@ -20,10 +20,11 @@ services:
       - ${APP_SSH_DIR}:/home/ssh-labor/.ssh
       - ${APP_WORKING_DIR}:/var/www/html
       - ${APP_LOG_DIR}:/var/www/logs
-      - ${APP_OPT_DIR}/build_and_bootstrap-env.sh:/opt/build_and_bootstrap-env.sh
-      - ${APP_OPT_DIR}/build_and_bootstrap-dir.sh:/opt/build_and_bootstrap-dir.sh
-      - ${APP_OPT_DIR}/bootstrap-dev.sh:/opt/bootstrap-dev.sh
-      - ${APP_OPT_DIR}/bootstrap-project.sh:/opt/bootstrap-project.sh
+      - ${APP_OPT_DIR}/bootstrap.sh:/opt/project/bootstrap.sh
+      - ${APP_OPT_DIR}/build.sh:/opt/project/build.sh
+      - ${APP_OPT_DIR}/development.sh:/opt/project/development.sh
+      - ${APP_OPT_DIR}/directories.sh:/opt/project/directories.sh
+      - ${APP_OPT_DIR}/permissions.sh:/opt/project/permissions.sh
     volumes_from:
       - data
   mysql:

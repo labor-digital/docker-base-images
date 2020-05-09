@@ -49,27 +49,21 @@ RUN apt-get install -y \
 # Setup a root bashrc for the composer-alias
 COPY conf/.bashrc /root/
 
-# Add default index.js
-COPY opt/index.js /opt
+# Use bash as our default shell
+SHELL ["/bin/bash", "-c"]
 
-# Add our entrypoint
-COPY opt/bootstrap.sh /opt/bootstrap.sh
-RUN chmod +x /opt/bootstrap.sh
+# Add our scripts
+COPY opt /opt
+RUN find /opt -type f -iname "*.sh" -exec chmod +x {} \;
 
 # Create data and logs directory and set the correct folder permissions
-RUN mkdir -p /var/www/html_data \
-	&& chown -R node.node /var/www/html_data \
-	&& chmod -R u=rwX,g=rwX,o-rwx /var/www/html_data \
-	&& mkdir -p /var/www/logs \
-	&& chown -R node.node /var/www/logs \
-	&& chmod -R u=rwX,g=rwX,o-rwx /var/www/logs \
-	&& mkdir -p /var/www/html \
-	&& chown -R node.node /var/www/html \
-	&& chmod -R u=rwX,g=rwX,o-rwx /var/www/html
+RUN source /root/.bashrc \
+	&& ensure_dir /var/www/html_data \
+	&& ensure_dir /var/www/html \
+	&& ensure_dir /var/www/logs
 
-WORKDIR /var/www/html
-
-# Copy default entry point
+# Prepare default work directory
 COPY src/* /var/www/html/
+WORKDIR /var/www/html
 
 ENTRYPOINT ["/opt/bootstrap.sh"]

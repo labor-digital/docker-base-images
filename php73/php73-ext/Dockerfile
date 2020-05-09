@@ -11,6 +11,6 @@ MAINTAINER LABOR.digital <info@labor.digital>
 LABEL description="LABOR Digital PHP7.3 - Extended"
 
 # Run additional library installation
-COPY opt/additionalLibraryInstallation.sh /opt/additionalLibraryInstallation.sh
-RUN chmod +x /opt/additionalLibraryInstallation.sh
-RUN /opt/additionalLibraryInstallation.sh
+COPY opt /opt
+RUN chmod +x /opt/ext/build.sh
+RUN /opt/ext/build.sh
