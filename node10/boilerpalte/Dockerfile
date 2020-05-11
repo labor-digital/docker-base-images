@@ -24,5 +24,3 @@ RUN find /opt/project -type f -iname "*.sh" -exec chmod +x {} \;
 
 # Run our build script
 RUN /opt/build.sh
-
-ENV APACHE_WEBROOT=${APACHE_WEBROOT}

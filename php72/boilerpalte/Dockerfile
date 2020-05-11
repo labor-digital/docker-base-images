@@ -18,11 +18,9 @@ ARG DOCKER_BASE_TAG
 #ADD src/ /var/www/html/
 #RUN source /root/.bashrc \
 #	&& chown -R "$DEFAULT_OWNER" /var/www/html \
-#	&& chmod -R u=rX,g=rX,o-rwx /var/www/html
-#RUN ls -la /var/www/html
-#RUN /opt/dev/prepare-build-env.sh
+#	&& chmod -R u=rwX,g=rwX,o-rwx /var/www/html
 #
-#RUN ls -la /var/www/html
+#RUN /opt/dev/prepare-build-env.sh
 #
 ## Run composer install
 #RUN source /root/.bashrc \
