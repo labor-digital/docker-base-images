@@ -33,3 +33,5 @@ RUN find /opt/dev -type f -iname "*.sh" -exec chmod +x {} \;
 # Make composer home directory
 RUN source /root/.bashrc \
 	&& ensure_dir /var/www/.composer
+
+ENV WRITE_PERMISSION_MARKERS=1

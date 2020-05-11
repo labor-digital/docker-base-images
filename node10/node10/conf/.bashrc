@@ -49,16 +49,18 @@ ensure_perms() {
 	DIR="$1"
 	STAT="${2:-"$DEFAULT_PERMISSIONS"}"
 	HONOR_MARKER="${HONOR_PERMISSION_MARKERS:-\"1\"}"
+	WRITE_MARKER="${WRITE_PERMISSION_MARKERS:-\"0\"}"
 
 	# Check if we got a directory or skip
-	if [[ -d "$DIR" ]]; then
+	if [ -d "$DIR" ]; then
 		:
-	elif [[ -f "$DIR" ]]; then
+	elif [ -e "$DIR" ]; then
 		echo "Setting permissions for $DIR to: $STAT"
 		chown -R "$DEFAULT_OWNER" "$DIR"
 		chmod -R "$STAT" "$DIR"
+		return
 	else
-		echo "FAIL: $DIR is not a directory - skip!"
+		echo "FAIL: $DIR does not exist - skip!"
 		return
 	fi
 
@@ -68,7 +70,9 @@ ensure_perms() {
 		echo "Permissions for $DIR should be correct (marker exists at: $MARKER_FILE_NAME)"
 	else
 		echo "Setting permissions for $DIR to: $STAT"
-		touch "$MARKER_FILE_NAME"
+		if [ "$WRITE_PERMISSION_MARKERS" = "1" ]; then
+			touch "$MARKER_FILE_NAME"
+		fi
 		chown -R "$DEFAULT_OWNER" "$DIR"
 		chmod -R "$STAT" "$DIR"
 	fi

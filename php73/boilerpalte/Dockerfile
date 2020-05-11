@@ -10,6 +10,8 @@ ARG DOCKER_BASE_TAG
 
 #FROM ${DOCKER_BASE_IMAGE}:${DOCKER_BASE_TAG}-dev
 #
+#ENV WRITE_PERMISSION_MARKERS=0
+#
 ## Add and run our additional shell scripts
 #COPY opt /opt/project
 #RUN find /opt/project -type f -iname "*.sh" -exec chmod +x {} \;
@@ -53,3 +55,4 @@ RUN find /opt/project -type f -iname "*.sh" -exec chmod +x {} \;
 RUN /opt/build.sh
 
 ENV APACHE_WEBROOT=${APACHE_WEBROOT}
+ENV WRITE_PERMISSION_MARKERS=1

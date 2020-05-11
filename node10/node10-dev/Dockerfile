@@ -26,3 +26,5 @@ RUN chmod +x /root/bashrc-dev.sh
 # Add our additional scripts
 COPY opt /opt
 RUN find /opt/dev -type f -iname "*.sh" -exec chmod +x {} \;
+
+ENV WRITE_PERMISSION_MARKERS=1

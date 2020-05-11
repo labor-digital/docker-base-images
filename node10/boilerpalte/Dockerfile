@@ -24,3 +24,5 @@ RUN find /opt/project -type f -iname "*.sh" -exec chmod +x {} \;
 
 # Run our build script
 RUN /opt/build.sh
+
+ENV WRITE_PERMISSION_MARKERS=1

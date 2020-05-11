@@ -3,8 +3,8 @@
 echo "Preparing development environment..."
 
 # Create additional directories if required
-if [ -f "/opt/directories.sh" ]; then
-  source /opt/directories.sh
+if [ -f "/opt/project/directories.sh" ]; then
+  source /opt/project/directories.sh
 fi
 
 # Check if we have a build_and_bootstrap-env file to run
