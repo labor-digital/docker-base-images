@@ -3,8 +3,18 @@
 # Executed when the development container boots up. Can be used to simulate additional build steps
 # you would normally put into "build.sh" but don't need for your production container
 
-# Install dev-symlinker
-composer global require labor-digital/composer-dev-symlink
+# Check if we have additional dev dependencies to install
+if [ -f "/opt/project/install.done" ]; then
+  echo "Dev dependencies have already been installed (marker exists at: /opt/project/install.done)"
+else
+  echo "Installing dev-only dependencies"
+
+  # Install dev-symlinker
+  composer global require labor-digital/composer-dev-symlink
+
+  # Set the marker
+  touch "/opt/project/install.done"
+fi
 
 # Install composer dependencies
 if [ -f "/var/www/html/composer.json" ]; then
