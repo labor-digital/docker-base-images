@@ -1,0 +1,18 @@
+n() {
+        chown -R node.node /var/www
+        sudo -u node -EH /usr/local/bin/npm "$@"
+        set_permissions
+}
+
+npm(){
+        chown -R node.node /var/www
+        sudo -u node -EH /usr/local/bin/npm "$@"
+        if [ $? -ne 0 ]
+        then
+                exit 1
+        fi
+        set_permissions
+}
+ncu(){
+	sudo -u node -EH /usr/local/bin/ncu "$@"
+}
