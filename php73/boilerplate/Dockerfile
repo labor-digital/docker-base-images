@@ -26,7 +26,7 @@ ARG DOCKER_BASE_TAG
 #
 ## Run composer install
 #RUN source /root/.bashrc \
-#	&& composer install
+#		&& composer install --ignore-platform-reqs --no-progress --optimize-autoloader --no-interaction --verbose --no-dev
 
 # ===================================================
 # Build Project Image

@@ -15,7 +15,6 @@ services:
       - .env
     environment:
       - 'APP_MYSQL_HOST=${COMPOSE_PROJECT_NAME}-mysql'
-      - APACHE_LOG_DIR=/var/www/logs
     volumes:
       - ${APP_SSH_DIR}:/home/ssh-labor/.ssh
       - ${APP_WORKING_DIR}:/var/www/html

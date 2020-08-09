@@ -3,6 +3,10 @@
 # Load global aliases
 source /root/.bashrc
 
+# Initialize volume directory permissions
+ensure_perms /var/www/html_data
+ensure_perms /var/www/logs
+
 # Make sure apache webroot exists
 ensure_dir "$APACHE_WEBROOT"
 
