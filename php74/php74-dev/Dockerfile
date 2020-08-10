@@ -16,6 +16,10 @@ RUN apt-get update && apt-get install -y \
 		mariadb-client \
 		git
 
+# Install xdebug
+COPY /conf/99-xdebug.ini /usr/local/etc/php/conf.d/
+RUN yes | pecl install xdebug
+
 # Add an extension to the bashrc to register the composer alias
 COPY conf/bashrc-dev.sh /root/
 RUN chmod +x /root/bashrc-dev.sh
