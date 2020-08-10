@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y \
 
 # Install xdebug
 COPY /conf/99-xdebug.ini /usr/local/etc/php/conf.d/
-RUN yes | pecl install xdebug
+RUN yes | pecl install xdebug \
+    && docker-php-ext-enable xdebug
 
 # Add an extension to the bashrc to register the composer alias
 COPY conf/bashrc-dev.sh /root/
