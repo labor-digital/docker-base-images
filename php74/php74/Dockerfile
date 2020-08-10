@@ -68,7 +68,7 @@ RUN apt-get install -y \
 RUN apt-get install -y \
         libzip-dev \
         zip \
-  && docker-php-ext-configure zip --with-libzip \
+  && docker-php-ext-configure zip \
   && docker-php-ext-install zip
 
 # Install mysql extension
@@ -80,11 +80,14 @@ RUN apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
+        graphviz \
 	&& yes '' | pecl install -f mcrypt \
 	&& echo "extension=mcrypt.so" > /usr/local/etc/php/conf.d/mcrypt.ini \
     && docker-php-ext-install -j$(nproc) \
 		iconv \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure gd \
+        --with-jpeg=/usr/include/ \
+        --with-freetype=/usr/include/ \
     && docker-php-ext-install -j$(nproc) \
 		gd
 
@@ -95,7 +98,9 @@ RUN pecl install \
 		apcu
 
 # Install mbstring
-RUN docker-php-ext-install \
+RUN apt-get install -y \
+        libonig-dev \
+    && docker-php-ext-install \
 	mbstring
 
 # Install opcache
