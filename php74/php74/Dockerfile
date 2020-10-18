@@ -76,6 +76,7 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 	
 # Install GD extension
 RUN apt-get install -y \
+        libwebp-dev \
 		libpng-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -86,8 +87,7 @@ RUN apt-get install -y \
     && docker-php-ext-install -j$(nproc) \
 		iconv \
     && docker-php-ext-configure gd \
-        --with-jpeg=/usr/include/ \
-        --with-freetype=/usr/include/ \
+        --with-freetype --with-png --with-webp --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
 		gd
 

@@ -76,6 +76,7 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 	
 # Install GD extension
 RUN apt-get install -y \
+        libwebp-dev \
 		libpng-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -84,7 +85,10 @@ RUN apt-get install -y \
 	&& echo "extension=mcrypt.so" > /usr/local/etc/php/conf.d/mcrypt.ini \
     && docker-php-ext-install -j$(nproc) \
 		iconv \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/ \
+        --with-webp-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) \
 		gd
 
