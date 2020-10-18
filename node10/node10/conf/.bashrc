@@ -94,6 +94,12 @@ set_permissions_forced(){
 	export HONOR_PERMISSION_MARKERS="1"
 }
 
+# Global access to the npm executable, executed as node user
+npm(){
+  sudo -u node -EH /usr/local/bin/npm "$@"
+  if [ $? -ne 0 ]; then exit 1; fi
+}
+
 # Used as a hook to run the .bashrc script of our dev container
 if [ -f "/root/bashrc-dev.sh" ]; then
 	. /root/bashrc-dev.sh
