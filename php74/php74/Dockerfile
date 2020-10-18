@@ -87,7 +87,7 @@ RUN apt-get install -y \
     && docker-php-ext-install -j$(nproc) \
 		iconv \
     && docker-php-ext-configure gd \
-        --with-freetype --with-png --with-webp --with-jpeg \
+        --with-freetype --with-webp --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
 		gd
 
