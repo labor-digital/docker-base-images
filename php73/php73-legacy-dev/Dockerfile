@@ -33,6 +33,9 @@ COPY conf/composer.json /home/composer/.composer/composer.json
 RUN chown -R composer.composer /home/composer/.composer
 
 # Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin \
+    && mv /usr/local/bin/composer.phar /usr/local/bin/composer2.phar
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --1
 
 # Install dev symlinker

@@ -89,6 +89,13 @@ Helper to call the /opt/permissions.sh file if it exists
 ### composer
 Global executable to run composer tasks. Look [here](https://getcomposer.org/doc/01-basic-usage.md) for additional information.
 
+#### composer1 / composer2
+Same as composer but lets you select the composer version to use for the command
+
 ### c
 Alias for "composer" but will not kill your console when the script fails -> You should only use this
 manually in a development environment
+
+#### c1 / c2
+Same as "c" but lets you select the composer version to use for the command
+
