@@ -98,3 +98,4 @@ manually in a development environment
 
 #### c1 / c2
 Same as "c" but lets you select the composer version to use for the command
+
