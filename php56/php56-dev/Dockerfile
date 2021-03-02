@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
 		vim \
 		nano \
 		mariadb-client \
-		git
+		git \
+		zlibc
 
 # Setup a composer user
 RUN groupadd composer
