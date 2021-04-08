@@ -53,6 +53,11 @@ jobs:
         run: docker push labordigital/docker-base-images:php73-legacy
 
       # Legacy Dev Image
+      - name: Checkout ssl certs
+        uses: actions/checkout@v2
+        with:
+          repository: labor-digital/ssl-certs
+          path: php73/php73-legacy-dev/ssl
       - name: Build the legacy Docker Dev image
         run: cd php73/php73-legacy-dev && docker build . --file Dockerfile --tag labordigital/docker-base-images:php73-legacy-dev
       - name: Push the image
