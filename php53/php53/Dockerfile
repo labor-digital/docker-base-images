@@ -113,6 +113,10 @@ RUN chmod +x /opt/bootstrap.sh
 COPY opt/directories.sh /opt/directories.sh
 RUN chmod +x /opt/directories.sh
 
+# Copy readEnv.sh
+COPY opt/readEnv.sh /opt/readEnv.sh
+RUN chmod +x /opt/readEnv.sh
+
 # Create data and logs directory and set the correct folder permissions
 RUN mkdir /var/www/html_data \
 	&& mkdir /var/www/logs

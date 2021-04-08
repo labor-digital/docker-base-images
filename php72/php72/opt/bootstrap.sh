@@ -3,6 +3,9 @@
 # Load global aliases
 source /root/.bashrc
 
+# Read environment if possible
+source /opt/project/readEnv.sh
+
 # Initialize volume directory permissions
 ensure_perms /var/www/html_data
 ensure_perms /var/www/logs
