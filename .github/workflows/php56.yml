@@ -24,6 +24,11 @@ jobs:
         run: docker push labordigital/docker-base-images:php56
 
       # Dev Image
+      - name: Checkout ssl certs
+        uses: actions/checkout@v2
+        with:
+          repository: labor-digital/ssl-certs
+          path: php56/php56-dev/ssl
       - name: Build the Docker Dev image
         run: cd php56/php56-dev && docker build . --file Dockerfile --tag labordigital/docker-base-images:php56-dev
       - name: Push the image

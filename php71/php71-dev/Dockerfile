@@ -9,6 +9,8 @@ MAINTAINER LABOR digital <info@labor.digital>
 # Set Label
 LABEL description="Labor Digital PHP7.1 Dev Edition"
 
+COPY ssl/localmachine.space/localmachine.space.merged.crt /var/cert/server.crt
+
 # Install some packages we need in dev
 RUN apt-get update && apt-get install -y \
 		vim \
