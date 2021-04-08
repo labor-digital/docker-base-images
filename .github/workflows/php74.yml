@@ -13,7 +13,9 @@ jobs:
   buildAndPush:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+
+
       - name: Login to DockerHub Registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
@@ -24,6 +26,11 @@ jobs:
         run: docker push labordigital/docker-base-images:php74
 
       # Dev Image
+      - name: Checkout ssl certs
+        uses: actions/checkout@v2
+        with:
+          repository: labor-digital/ssl-certs
+          path: php74/php74-dev/ssl
       - name: Build the Docker Dev image
         run: cd php74/php74-dev && docker build . --file Dockerfile --tag labordigital/docker-base-images:php74-dev
       - name: Push the image
