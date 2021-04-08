@@ -5,6 +5,7 @@
 .settings/
 .DS_Store
 .env
+.env.app
 .unison*
 perms*.set
 

@@ -4,6 +4,7 @@
 .settings/
 .DS_Store
 .env
+.env.app
 .unison*
 node_modules
 perms*.set

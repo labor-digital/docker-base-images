@@ -98,3 +98,15 @@ manually in a development environment
 
 #### c1 / c2
 Same as "c" but lets you select the composer version to use for the command
+
+## Environment variables
+
+### .env
+The .env file contains all infrastructure related environment variables for your project. Every time when you change or add one of them
+docker-compose will recreate the container automatically. The [lab cli](https://github.com/labor-digital/lab-cli) will copy .env.template and create the .env file for you.
+If you don't use the lab cli, just copy .env.template yourself. By default, .env files are not commited, where .env.tempalte files are!
+
+### .env.app
+Is quite similar to .env, but should contain app/project related secrets. The main benefit is, that those variables are not parsed by docker,
+meaning if you change .env.app docker-compose will NOT recreate the container! The file gets mounted as a volume into your container.
+After you changed it you can either just restart the project or call `$ /opt/readEnv.sh` in your container shell.
