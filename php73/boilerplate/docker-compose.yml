@@ -24,6 +24,7 @@ services:
       - ${APP_OPT_DIR}/development.sh:/opt/project/development.sh
       - ${APP_OPT_DIR}/directories.sh:/opt/project/directories.sh
       - ${APP_OPT_DIR}/permissions.sh:/opt/project/permissions.sh
+      - ${APP_ROOT_DIR}/.env.app:/opt/.env.app
     volumes_from:
       - data
   mysql:
