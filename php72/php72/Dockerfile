@@ -139,3 +139,4 @@ RUN source /root/.bashrc \
 	&& ensure_dir /var/www/logs
 
 ENTRYPOINT ["/opt/bootstrap.sh"]
+
