@@ -9,7 +9,7 @@ MAINTAINER LABOR digital <info@labor.digital>
 # Set Label
 LABEL description="Labor Digital PHP5.6 Dev Edition"
 
-COPY ssl/localmachine.space/localmachine.space.merged.crt /var/cert/server.crt
+COPY ssl/localmachine.space/localmachine.space.merged.crt /var/cert/merged.crt
 
 # Install some packages we need in dev
 RUN apt-get update && apt-get install -y \
