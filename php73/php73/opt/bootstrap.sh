@@ -4,7 +4,7 @@
 source /root/.bashrc
 
 # Read environment if possible
-source /opt/project/readEnv.sh
+source /opt/readEnv.sh
 
 # Initialize volume directory permissions
 ensure_perms /var/www/html_data

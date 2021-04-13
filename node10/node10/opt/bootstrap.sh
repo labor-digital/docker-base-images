@@ -4,7 +4,7 @@
 source /root/.bashrc
 
 # Read environment if possible
-source /opt/project/readEnv.sh
+source /opt/readEnv.sh
 
 # Make sure apache webroot exists
 ensure_dir "$APACHE_WEBROOT"
