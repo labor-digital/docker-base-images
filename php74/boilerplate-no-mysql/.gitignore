@@ -22,10 +22,11 @@ perms*.set
 
 # IDEA Code Style
 .idea/*
-!.idea/copyright/
-!.idea/copyright/*
-!.idea/codeStyles/
-!.idea/codeStyles/*
+!.idea/copyright
+!.idea/codeStyles
+!.idea/inspectionProfiles
+!.idea/php-inspections-ea-ultimate.xml
+!.idea/saveactions_settings.xml
 
 # Vendor dev directory
 src/vendor-dev/*
