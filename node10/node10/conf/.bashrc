@@ -102,5 +102,5 @@ npm(){
 
 # Used as a hook to run the .bashrc script of our dev container
 if [ -f "/root/bashrc-dev.sh" ]; then
-	. /root/bashrc-dev.sh
+	source /root/bashrc-dev.sh
 fi
