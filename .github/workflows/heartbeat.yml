@@ -3,11 +3,9 @@
 name: Heartbeat
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 2 */5 * *'
-  push:
-    branches:
-      - master
 
 jobs:
   report:
