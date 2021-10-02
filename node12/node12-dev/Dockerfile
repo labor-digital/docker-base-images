@@ -11,11 +11,6 @@ LABEL description="LABOR Digital Node 12 Dev Edition"
 
 ENV NODE_ENV development
 
-# Install some packages we need in dev
-RUN apt-get update && apt-get install -y \
-		vim \
-		nano
-
 # Install some global dependencies
 RUN npm i -g nodemon npm-check-updates
 

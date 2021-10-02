@@ -13,8 +13,6 @@ COPY ssl/localmachine.space/localmachine.space.merged.crt /var/cert/merged.crt
 
 # Install some packages we need in dev
 RUN apt-get update && apt-get install -y \
-		vim \
-		nano \
 		mariadb-client \
 		git \
 		zlibc

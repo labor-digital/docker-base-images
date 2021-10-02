@@ -19,6 +19,7 @@ ENV TERM=xterm
 
 # Install sudo
 RUN apt-get update && apt-get install -y sudo
+RUN apt-get update && apt-get install -y vim nano
 
 # Configure dpkg | Install locales, keyboard and timezone
 COPY /conf/deb-preseed.txt /tmp/init_locales/deb-preseed.txt
@@ -35,6 +36,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
 ENV NODE_ENV production
+
 
 # Install curl
 RUN apt-get install -y \
