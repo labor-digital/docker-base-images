@@ -1,4 +1,4 @@
-name: Build and Push - PHP 80
+name: Build and Push - php80
 
 on:
   schedule:
@@ -21,20 +21,20 @@ jobs:
       - name: Login to DockerHub Registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - name: Install dependencies
-        run: npm install
+        run: cd php80/php80 && npm install
 
       # Base Image
       - name: Build and push the base image
-        run: npm run base:build && npm run base:push
+        run: cd php80/php80 && npm run base:build && npm run base:push
 
       # Dev Image
       - name: Build and push the dev image
-        run: npm run dev:build && npm run dev:push
+        run: cd php80/php80 && npm run dev:build && npm run dev:push
 
       # Extended Image
       - name: Build and push the extended image
-        run: npm run ext:build && npm run ext:push
+        run: cd php80/php80 && npm run ext:build && npm run ext:push
 
       # Extended Dev Image
       - name: Build and push the extended dev image
-        run: npm run extDev:build && npm run extDev:push
+        run: cd php80/php80 && npm run extDev:build && npm run extDev:push
