@@ -90,7 +90,7 @@ set_permissions() {
 
 # Helper to call the /opt/permissions.sh file if it exists but
 # the ensure_perms helper will NOT check for markers and forcefully update the permissions
-set_permissions_forced(){
+set_permissions_forced() {
 	export HONOR_PERMISSION_MARKERS="0"
 	set_permissions
 	export HONOR_PERMISSION_MARKERS="1"
