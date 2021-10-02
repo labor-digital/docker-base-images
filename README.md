@@ -26,8 +26,8 @@ For some PHP Versions, we provide an "extended" version, which includes Imagick,
 ### Legacy Versions
 All packages starting from PHP >= 7.2 and NODE >= 10 have a different shell file setup
 than the older images. To provide a smooth transition for existing projects, the PHP images for
-versions 7.2 and 7.3, as well as the upcoming PHP 7.4, will have an additional "-legacy" variant
-that still has the same .sh file setup. **PHP >= 7.5 will NO LONGER get those legacy versions, so
+versions 7.2 and 7.3, will have an additional "-legacy" variant
+that still has the same .sh file setup. **PHP >= 7.4 will NO LONGER get those legacy versions, so
 update your scripts to match before migrating**
 
 ## Environment Variables

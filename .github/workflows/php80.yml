@@ -1,0 +1,40 @@
+name: Build and Push - PHP 80
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  push:
+    branches:
+      - master
+    paths:
+      - php80/**
+
+jobs:
+  buildAndPush:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Install dependencies
+        run: npm install
+
+      # Base Image
+      - name: Build and push the base image
+        run: npm run base:build && npm run base:push
+
+      # Dev Image
+      - name: Build and push the dev image
+        run: npm run dev:build && npm run dev:push
+
+      # Extended Image
+      - name: Build and push the extended image
+        run: npm run ext:build && npm run ext:push
+
+      # Extended Dev Image
+      - name: Build and push the extended dev image
+        run: npm run extDev:build && npm run extDev:push
