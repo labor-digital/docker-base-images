@@ -40,7 +40,7 @@ RUN sudo -u composer -EH /usr/local/bin/composer.phar global install
 
 # Add phpunit
 RUN apt-get update && apt-get install -y wget \
-	&& wget "https://phar.phpunit.de/phpunit-6.0.phar" \
+	&& wget --no-check-certificate "https://phar.phpunit.de/phpunit-6.0.phar" \
 	&& chmod +x "phpunit-6.0.phar" \
 	&& mv "phpunit-6.0.phar" /usr/local/bin/phpunit \
 	&& phpunit --version
