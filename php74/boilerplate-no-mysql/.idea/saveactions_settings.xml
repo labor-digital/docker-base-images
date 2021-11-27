@@ -12,9 +12,8 @@
     </option>
     <option name="exclusions">
       <set>
-        <option value="src/vendor-dev/.*" />
-        <option value="typo/src/public/typo3/.*" />
-        <option value="typo/src/var/.*" />
+        <option value="src/public/typo3/.*" />
+        <option value="src/var/.*" />
       </set>
     </option>
   </component>
