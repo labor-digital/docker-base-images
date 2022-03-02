@@ -16,10 +16,23 @@
 # Last modified: 2021.04.08 at 11:53
 #
 
+function export_envs() {
+  local envFile=${1:-.env}
+  local isComment='^[[:space:]]*#'
+  local isBlank='^[[:space:]]*$'
+  while IFS= read -r line; do
+    [[ $line =~ $isComment ]] && continue
+    [[ $line =~ $isBlank ]] && continue
+    key=$(echo "$line" | cut -d '=' -f 1)
+    value=$(echo "$line" | cut -d '=' -f 2-)
+    eval "export ${key}=\"$(echo \${value})\""
+  done < <( cat "$envFile" )
+}
+
 if [ -f "/opt/.env.app" ]; then
   echo "Reading env variables from /opt/.env.app"
   set -a
-  . /opt/.env.app
+  export_envs "/opt/.env.app"
   set +a
 else
   echo "There is no /opt/.env.app, skip reading env variables"
