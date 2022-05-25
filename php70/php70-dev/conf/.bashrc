@@ -31,12 +31,12 @@ _afterComposer(){
 # manually in a development environment
 c1() {
      chown -R composer.www-data /var/www
-	 sudo -u www-data -EH /usr/local/bin/composer.phar "$@"
+	 sudo -u composer -EH /usr/local/bin/composer.phar "$@"
 	 _afterComposer "$1"
 }
 c2() {
      chown -R composer.www-data /var/www
-	 sudo -u www-data -EH /usr/local/bin/composer2.phar "$@"
+	 sudo -u composer -EH /usr/local/bin/composer2.phar "$@"
 	 _afterComposer "$1"
 }
 c() {
@@ -46,13 +46,13 @@ c() {
 # Global executable to run composer tasks
 composer1(){
     chown -R composer.www-data /var/www
-	sudo -u www-data -EH /usr/local/bin/composer.phar "$@"
+	sudo -u composer -EH /usr/local/bin/composer.phar "$@"
 	if [ $? -ne 0 ]; then exit 1; fi
 	_afterComposer "$1"
 }
 composer2(){
     chown -R composer.www-data /var/www
-	sudo -u www-data -EH /usr/local/bin/composer2.phar "$@"
+	sudo -u composer -EH /usr/local/bin/composer2.phar "$@"
 	if [ $? -ne 0 ]; then exit 1; fi
 	_afterComposer "$1"
 }
