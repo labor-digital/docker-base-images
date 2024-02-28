@@ -20,7 +20,7 @@ EXPOSE 443
 ENV TERM=xterm
 
 # Install sudo
-RUN apt-get update && apt-get install -y --force-yes sudo
+#RUN apt-get update && apt-get install -y --force-yes sudo
 RUN apt-get update && apt-get install -y vim nano
 
 # Configure dpkg | Install locales, keyboard and timezone
