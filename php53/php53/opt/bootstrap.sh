@@ -10,4 +10,7 @@ set_permissions
 source /opt/bootstrap-project.sh
 set_permissions
 
+# Fix for older apache2 versions
+source /etc/apache2/envvars
+
 apache2-foreground
